@@ -211,7 +211,7 @@ async def mass(interaction: discord.Interaction, value: float, unit: str, to_uni
 @app_commands.describe(unit="Volume unit")
 @app_commands.choices(unit=[
     app_commands.Choice(name="Liters", value="liters"),
-    app_commands.Choice(name="Mililiters", value="mililiters"),
+    app_commands.Choice(name="Milliliters", value="mililiters"),
     app_commands.Choice(name="Pints(UK)", value="UK pints"),
     app_commands.Choice(name="Pints (US)", value="US pints"),
     app_commands.Choice(name="Gills (UK)", value="UK gills"),
@@ -226,7 +226,7 @@ async def mass(interaction: discord.Interaction, value: float, unit: str, to_uni
 @app_commands.describe(to_unit="Unit to conver to(optional)")
 @app_commands.choices(to_unit=[
     app_commands.Choice(name="Liters", value="liters"),
-    app_commands.Choice(name="Mililiters", value="mililiters"),
+    app_commands.Choice(name="Milliliters", value="mililiters"),
     app_commands.Choice(name="Pints(UK)", value="UK pints"),
     app_commands.Choice(name="Pints (US)", value="US pints"),
     app_commands.Choice(name="Gills (UK)", value="UK gills"),
@@ -242,7 +242,7 @@ async def mass(interaction: discord.Interaction, value: float, unit: str, to_uni
     # Table of units
     conversion = {
         'liters': 1,
-        'mililiters': 1000,
+        'milliliters': 1000,
         'UK pints': 1.7597539864,
         'US pints': 2.1133764189,
         'UK gills': 7.0390159456,
@@ -264,7 +264,7 @@ async def mass(interaction: discord.Interaction, value: float, unit: str, to_uni
     else:
         #Converts given value to meters
         value_l = value * conversion[unit]
-        await interaction.response.send_message(f"{value} {unit} is: {round (value_l * conversion['liters'], 2)} liters, {round (value_l * conversion['mililiters'], 3)} mililiters, {round (value_l * conversion['UK pints'], 2)} UK pints, {round (value_l * conversion['US pints'], 2)} US pints, {round (value_l * conversion['UK gills'], 2)} UK gills, {round(value_l * conversion['US gills'], 2)} US gills, {round (value_l * conversion['UK quarts'], 2)} UK quarts, {round (value_l * conversion['US quarts'], 2)} US quarts, {round (value_l * conversion['UK gallons'], 2)} UK gallons, {round (value_l * conversion['US gallons'], 2)} US gallons.")
+        await interaction.response.send_message(f"{value} {unit} is: {round (value_l * conversion['liters'], 2)} liters, {round (value_l * conversion['milliliters'], 3)} milliliters, {round (value_l * conversion['UK pints'], 2)} UK pints, {round (value_l * conversion['US pints'], 2)} US pints, {round (value_l * conversion['UK gills'], 2)} UK gills, {round(value_l * conversion['US gills'], 2)} US gills, {round (value_l * conversion['UK quarts'], 2)} UK quarts, {round (value_l * conversion['US quarts'], 2)} US quarts, {round (value_l * conversion['UK gallons'], 2)} UK gallons, {round (value_l * conversion['US gallons'], 2)} US gallons.")
 
 
 

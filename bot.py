@@ -72,21 +72,21 @@ async def temp(interaction: discord.Interaction, value: float, unit: str) -> Non
     if unit == "C":
         fahrenheit = (value *9/5) +32
         kelvin = value +273.15
-        print(f"/temp with {unit}, {value} ran correctly")
+        print(f"/temp command ran")
         await interaction.response.send_message(f'***{round(value, 2)}*** Celsius is ***{round(fahrenheit, 2)}*** Fahrenheit and ***{round(kelvin, 2)}*** Kelvin.')
     elif unit == "K":
         celsius = value - 273.15
         fahrenheit = (value - 273.15) * 9/5 + 32
-        print(f"/temp with {unit}, {value} ran correctly")
+        print(f"/temp command ran")
         await interaction.response.send_message(f'***{round(value, 2)}*** Kelvin is ***{round(celsius, 2)}*** Celsius and ***{round(fahrenheit, 2)}*** Fahrenheit.')
     elif unit == "F":
         celsius = (value - 32) * 5/9
         kelvin = (value - 32) * 5/9 + 273.15
-        print(f"/temp with {unit}, {value} ran correctly")
+        print(f"/temp command ran")
         await interaction.response.send_message(f'***{round(value, 2)}*** Fahrenheit is ***{round(celsius, 2)}*** Celsius and ***{round(kelvin, 2)}*** Kelvin.')
     else:
         await interaction.response.send_message("Unkown parameters. Please use numbers for the value and choose an unit.")
-        print(f"\n\n\n/temp with {unit}, {value} ran incorrectly\n\n\n")
+        print(f"/temp command ran")
 
 
 
@@ -138,12 +138,14 @@ async def length(interaction: discord.Interaction, value: float, unit: str, to_u
     if to_unit:
 
         #Converts given value to meters
+        print("/length command ran")
         value_meters = value * conversion[unit]
         #Converts value from meters to 2nd given unit
         converted_value = value_meters / conversion[to_unit]
         await interaction.response.send_message(f"***{value}*** {unit} is ***{round (converted_value, 2)}*** {to_unit}")
     else:
         #Converts given value to meters
+        print("/length command ran")
         value_meters = value * conversion[unit]
         await interaction.response.send_message(f"***{value}*** {unit} is: ***{round (value_meters / conversion['meters'], 2)}*** meters, ***{round (value_meters / conversion['kilometers'], 2)}*** kilometers, ***{round (value_meters / conversion['centimeters'], 2)}*** centimeters, ***{round (value_meters / conversion['milimeters'], 2)}*** milimeters, ***{round (value_meters / conversion['inches'], 2)}*** inches, ***{round(value_meters / conversion['feet'], 2)}*** feet, ***{round (value_meters / conversion['yards'], 2)}*** yards, ***{round (value_meters / conversion['miles'], 2)}*** miles, ***{round (value_meters / conversion['football fields'], 2)}*** football fields, ***{round (value_meters / conversion['bananas'], 2)}*** bananas.")
 
@@ -200,9 +202,11 @@ async def mass(interaction: discord.Interaction, value: float, unit: str, to_uni
         #Converts value from kilograms to 2nd given unit
         converted_value = value_kg * conversion[to_unit]
         await interaction.response.send_message(f"{value} {unit} is {round (converted_value, 3)} {to_unit}")
+        print("/mass command ran")
     else:
         #Converts given value to meters
         value_kg = value * conversion[unit]
+        print("/mass command ran")
         await interaction.response.send_message(f"{value} {unit} is: {round (value_kg * conversion['kilograms'], 2)} kilograms, {round (value_kg * conversion['grams'], 3)} grams, {round (value_kg * conversion['dekagrams'], 2)} dekagrams, {round (value_kg * conversion['tonnes'], 3)} tonnes, {round (value_kg * conversion['ounces'], 2)} ounces, {round(value_kg * conversion['pounds'], 2)} pounds, {round (value_kg * conversion['stones'], 2)} stones, {round (value_kg * conversion['quarters'], 2)} quarters, {round (value_kg * conversion['long tons'], 2)} Long (UK) tons, {round (value_kg * conversion['short tons'], 2)} short (US) tons.")
 
 #/volume slash command
@@ -274,10 +278,10 @@ async def mass(interaction: discord.Interaction, value: float, unit: str, to_uni
 async def time(interaction: discord.Interaction, location: str) -> None:
     current_time = get_time_in_location(location)
     if current_time[0] == "L":
-        print(f"\n\n\n/time with {location} ran incorrectly\n\n\n")
+        print(f"/time command ran")
         await interaction.response.send_message("Location not found. Examples of a correct use of the !time command: /time berlin, /time finland \nAfter /time write a city or a country name. Note that it'll only display a single timezone, even if a country has many.")
     else:
-        print(f"/time with {location} ran correctly")
+        print(f"/time command ran")
         await interaction.response.send_message(f'The current time in {location.title()} is ***{current_time}***')
 
 
@@ -298,29 +302,29 @@ async def speed(interaction: discord.Interaction, value: float, unit: str) -> No
         mph = value * 0.621371192
         mps = value * 0.277777778
         fpm = value * 54.680664916
-        print(f"/speed with {unit}, {value} ran correctly")
+        print(f"/speed command ran")
         await interaction.response.send_message(f'***{round(value, 2)}*** km/h is ***{round(mph, 2)}*** mph, ***{round(mps, 2)}*** m/s and ***{round(fpm, 2)}*** fpm.')
     elif unit == "mph":
         kmph = value * 1.609344
         mps = value * 0.44704
         fpm = value * 88
-        print(f"/speed with {unit}, {value} ran correctly")
+        print(f"/speed command ran")
         await interaction.response.send_message(f'***{round(value, 2)}*** mph is ***{round(kmph, 2)}*** km/h, ***{round(mps, 2)}*** m/s and ***{round(fpm, 2)}*** fpm.')
     elif unit == "m/s":
         mph = value * 2.23693629
         kmph = value * 3.6
         fpm = value * 196.85039370079
-        print(f"/speed with {unit}, {value} ran correctly")
+        print(f"/speed command ran")
         await interaction.response.send_message(f'***{round(value, 2)}*** m/s is ***{round(mph, 2)}*** km/h, ***{round(kmph, 2)}*** m/s and ***{round(fpm, 2)}*** fpm.')
     elif unit == "fpm":
         mph = value * 0.0113636
         mps = value * 0.00508
         kmph = value * 0.018287941478400002
-        print(f"/speed with {unit}, {value} ran correctly")
+        print(f"/speed command ran")
         await interaction.response.send_message(f'***{round(value, 2)}*** fpm is ***{round(mph, 2)}*** mph, ***{round(mps, 2)}*** m/s and ***{round(kmph, 2)}*** km/h.')
     else:
         await interaction.response.send_message("Unkown parameters. Please use numbers for the value and choose an unit.")
-        print(f"\n\n\n/speed with {unit}, {value} ran incorrectly\n\n\n")
+        print(f"/speed command ran")
 
 
 # runs the bot with the token, not visible in commits

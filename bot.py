@@ -2,6 +2,7 @@ from geopy.geocoders import Nominatim
 from timezonefinder import TimezoneFinder
 import pytz
 from datetime import datetime
+import math
 
 import discord
 from discord.ext import commands
@@ -56,6 +57,47 @@ async def on_ready():
 async def help(interaction: discord.Interaction) -> None:
     await interaction.response.send_message("***Thanks for using International Utilities :)***\n\nCommands:\n***/help***\nShows all bot's commands\n***/temp value unit***\nConverts entered temperature into celsius, kelvin and fahrenheit.\n***/length value unit***\nConverts entered length into all commonly used length measurement units:\nmilimeters, centimeters, meters, kilometers, miles, yards, inches, feet, football stadiums, bananas.\n***/timezone city/country***\nChecks the current time in a city. If you enter a country,\nthe bot will use the country's capital city.\n***/speed value unit***\nConverts entered velocity into km/h, mph, m/s and fpm\n***/mass value unit***\nConverts entered mass into all commonly used mass units:\ngrams, decagrams, kilograms, tonnes (metric), ounces, pounds, stones, quarters, tons (american) and tons (british)\n***/volume value unit***\nConverts entered volume into all commonly used volume units:\nliters, milimeters, pints, quarts, gallons\n\n***If you need further help or want to report a bug, please contact ejtako_ or gaapcio***")
 
+
+# /height slash command (yes this is a barely working spaghetti, it'll get a rework later)
+@bot.tree.command(name="height", description="Converts height between imperial and metric units")
+@app_commands.describe(value="Height value")
+@app_commands.describe(unit="Height unit")
+@app_commands.choices(unit=[
+    app_commands.Choice(name="Centimeters", value="cm"),
+    app_commands.Choice(name="Feet and inches", value="feet")
+])
+async def height(interaction: discord.Interaction, value: str, unit: str) -> None:
+    if unit == "cm":
+        feetvalue = math.floor(value / 30.48)
+        inchesvalue = int(round((value / 30.48 - feetvalue) * 12, 0))
+        await interaction.response.send_message(f'***{value}*** centimeters is ***{feetvalue}\'{inchesvalue}***')
+    elif unit == "feet":
+        if len(str(value)) == 3:
+            try:
+                feetvalue = value[0]
+                inchesvalue = value[2]
+                centimetersvalue = float(feetvalue) * 30.48 + float(inchesvalue) * 2.54
+                await interaction.response.send_message(f'***{feetvalue}\'{inchesvalue}*** is ***{centimetersvalue}*** centimeters')
+            except:
+                await interaction.response.send_message(f'Please input a correct height in feet and inches. Examples: 5\'11, 6. You can either use a \' or a space.')
+        elif len(str(value)) == 4:
+            try:
+                feetvalue = value[0]
+                inchesvalue = value[2:4]
+                centimetersvalue = float(feetvalue) * 30.48 + float(inchesvalue) * 2.54
+                await interaction.response.send_message(f'***{feetvalue}\'{inchesvalue}*** is ***{centimetersvalue}*** centimeters')
+            except:
+                await interaction.response.send_message(f'Please input a correct height in feet and inches. Examples: 5\'11, 6. You can either use a \' or a space.')
+        elif len(str(value)) == 1:
+            try:
+                feetvalue = value[0]
+                inchesvalue = 0
+                centimetersvalue = float(feetvalue) * 30.48 + float(inchesvalue) * 2.54
+                await interaction.response.send_message(f'***{feetvalue}\'{inchesvalue}*** is ***{centimetersvalue}*** centimeters')
+            except:
+                await interaction.response.send_message(f'Please input a correct height in feet and inches. Examples: 5\'11, 6. You can either use a \' or a space.')
+        else:
+            await interaction.response.send_message(f'Please input a correct height in feet and inches. Examples: 5\'11, 6. You can either use a \' or a space.')
 
 
 # /temp slash command

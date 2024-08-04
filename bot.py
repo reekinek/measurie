@@ -68,6 +68,7 @@ async def help(interaction: discord.Interaction) -> None:
 ])
 async def height(interaction: discord.Interaction, value: str, unit: str) -> None:
     if unit == "cm":
+        value = float(value)
         feetvalue = math.floor(value / 30.48)
         inchesvalue = int(round((value / 30.48 - feetvalue) * 12, 0))
         await interaction.response.send_message(f'***{value}*** centimeters is ***{feetvalue}\'{inchesvalue}***')
